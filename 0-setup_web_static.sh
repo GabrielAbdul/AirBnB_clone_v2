@@ -5,7 +5,7 @@ mkdir -p /data
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
 echo "Simple content to test my Nginx configuration" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/current /data/web_static/releases/test/
+ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 sed -i '/^\tserver_name*/a\\n\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
 sudo service nginx restart
