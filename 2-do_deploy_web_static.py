@@ -14,7 +14,7 @@ def do_deploy(archive_path):
         # upload archive to tmp dir of both servers
         put(archive_path, '/tmp'/)
         # extract filename of file to perform op on
-        file_name = run('ls -1')
+        file_name = run('ls -1 /tmp/')
         file_name = file_name.replace('.tgz', '')
         # decompress archive file
         run('tar -xzvf /tmp/{}'.file_name)
