@@ -6,6 +6,8 @@ from fabric.api import run, put, env
 # specify our servers
 web01, web02 = '104.196.165.127', '34.230.11.25'
 env.hosts = [web01, web02]
+
+
 def do_deploy(archive_path):
     '''distributes an archive to your web servers'''
     if not archive_path:
@@ -14,17 +16,24 @@ def do_deploy(archive_path):
         # upload archive to tmp dir of both servers
         put(archive_path, '/tmp/')
         # extract filename of file to perform op on
-        file_name = run('ls -1 /tmp/')
-        file_name = file_name.replace('.tgz', '')
+        file_name_ext = archive_path.split('/')[1]
+        print(file_name_ext)
+        file_name = file_name_ext[1].split('.')[0]
+        print(file_name)
+        # create destination var
+        run('mkdir -p /data/web_static/releases/{}/'.format(file_name))
         # decompress archive file
-        run('tar -xzvf /tmp/{}'.file_name)
+        run('tar -xzvf /tmp/{} -C /data/web_static/releases/{}/'
+            .format(file_name_ext, file_name))
         # remove archive file
-        run('rm {}.tgz'.format(archive_path))
+        run('rm -rf /tmp/{}'.format(file_name_ext))
         # remove old sym link
-        run('rm /data/web_static/current')
+        run('rm -rf /data/web_static/current')
         # create new one
-        run('ln -sf /data/web_static/current /data/web_static/releases/{}'
-            .format(file_name))
+        run('ln -sf /data/web_static/releases/{}/\
+            /data/web_static/current'.format(file_name))
+        print('New version deployed!')
         return True
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
