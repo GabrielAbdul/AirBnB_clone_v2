@@ -3,16 +3,16 @@
 from fabric.api import run, put, env
 
 
+# specify our servers
+web01, web02 = '104.196.165.127', '34.230.11.25'
+env.hosts = [web01, web02]
 def do_deploy(archive_path):
     '''distributes an archive to your web servers'''
     if not archive_path:
         return False
     try:
-        # specify our servers
-        web01, web02 = '104.196.165.127', '34.230.11.25'
-        env.hosts = [web01, web02]
         # upload archive to tmp dir of both servers
-        put(archive_path, '/tmp'/)
+        put(archive_path, '/tmp/')
         # extract filename of file to perform op on
         file_name = run('ls -1 /tmp/')
         file_name = file_name.replace('.tgz', '')
@@ -27,4 +27,4 @@ def do_deploy(archive_path):
             .format(file_name))
         return True
     except Exception:
-        reuturn False
+        return False
