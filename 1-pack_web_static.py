@@ -1,12 +1,13 @@
 #!/usr/bin/python3
-'''Fabric script that generates a .tgz archive from the contents of the web_static folder'''
+'''Fabric script that'''
 from datetime import datetime
 from fabric.api import local
 
 
 def do_pack():
-    ''''''
-    archive = 'web_static_{}.tgz'.format(datetime.now().strftime('%Y%m%d%H%M%S'))
+    '''generates a tgz archive'''
+    archive = 'web_static_{}.tgz'.format(datetime.now().strftime
+                                         ('%Y%m%d%H%M%S'))
     local('mkdir -p versions')
 
     try:
