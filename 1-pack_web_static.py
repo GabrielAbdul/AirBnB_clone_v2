@@ -10,7 +10,7 @@ def do_pack():
     local('mkdir -p versions')
 
     try:
-        local('tar -cvzf {} web_static'.format(archive))
+        local('tar -cvzf versions/{} web_static'.format(archive))
         return "versions/{}".format(archive)
     except:
         return None
