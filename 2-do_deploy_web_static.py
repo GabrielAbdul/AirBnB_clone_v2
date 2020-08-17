@@ -21,13 +21,13 @@ def do_deploy(archive_path):
         # create destination var
         run('mkdir -p /data/web_static/releases/{}/'.format(file_name))
         # decompress archive file
-        run('tar -xzvf /tmp/{} -C /data/web_static/releases/{}/'
+        run('tar -xzf /tmp/{} -C /data/web_static/releases/{}/'
             .format(file_name_ext, file_name))
         # remove archive file
         run('rm -rf /tmp/{}'.format(file_name_ext))
         # move files
         p = '/data/web_static/releases'
-        run('mv {}/{}/web_static/ {}/{}'.format(p, file_name, p, file_name))
+        run('mv {}/{}/web_static/* {}/{}'.format(p, file_name, p, file_name))
         # remove old sym link
         run('rm -rf /data/web_static/current')
         # create new one
@@ -35,5 +35,6 @@ def do_deploy(archive_path):
             /data/web_static/current'.format(file_name))
         print('New version deployed!')
         return True
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
