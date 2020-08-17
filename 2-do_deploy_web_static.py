@@ -18,7 +18,7 @@ def do_deploy(archive_path):
         # extract filename of file to perform op on
         file_name_ext = archive_path.split('/')[1]
         print(file_name_ext)
-        file_name = file_name_ext[1].split('.')[0]
+        file_name = file_name_ext.split('.')[0]
         print(file_name)
         # create destination var
         run('mkdir -p /data/web_static/releases/{}/'.format(file_name))
@@ -27,6 +27,8 @@ def do_deploy(archive_path):
             .format(file_name_ext, file_name))
         # remove archive file
         run('rm -rf /tmp/{}'.format(file_name_ext))
+        # move files
+        run('mv /data/web_static/releases/{}/web_static/ /data/web_static/releases/{}'.format(file_name, file_name)
         # remove old sym link
         run('rm -rf /data/web_static/current')
         # create new one
