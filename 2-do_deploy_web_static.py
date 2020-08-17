@@ -31,10 +31,9 @@ def do_deploy(archive_path):
         # remove old sym link
         run('rm -rf /data/web_static/current')
         # create new one
-        run('ln -sf /data/web_static/releases/{}/\
+        run('ln -s /data/web_static/releases/{}/\
             /data/web_static/current'.format(file_name))
         print('New version deployed!')
         return True
-    except Exception as e:
-        print(e)
+    except Exception:
         return False
