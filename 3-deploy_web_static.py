@@ -7,7 +7,7 @@ do_deploy = __import__('2-do_deploy_web_static').do_deploy
 web01, web02 = '104.196.165.127', '34.230.11.25'
 env.hosts = [web01, web02]
 
-def do_deploy():
+def deploy():
     '''creates and distributes an archive to web servers'''
     path_name = do_pack()
     if not path_name:
