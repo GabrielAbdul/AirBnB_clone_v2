@@ -8,7 +8,7 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.teadown_appcontext
+@app.teardown_appcontext
 def teardown_method(self):
     '''teardown'''
     storage.close()
