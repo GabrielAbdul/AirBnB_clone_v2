@@ -42,7 +42,8 @@ def display_if_numebr(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def render_if_number(n):
     '''displays <n> is number if n is number"'''
-    return render_template('5-number.html')
+
+    return render_template('5-number.html', number=n)
 
 if __name__ == '__main__':
     app.run(
