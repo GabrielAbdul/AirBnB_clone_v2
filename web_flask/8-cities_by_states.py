@@ -3,7 +3,7 @@
 
 
 from flask import Flask
-from models.engine.file_storage import storage
+from models import storage
 
 app = Flask(__name__)
 
