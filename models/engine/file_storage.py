@@ -14,12 +14,12 @@ class FileStorage:
         if cls is not None:
             my_dict = {}
             # loop through all the Place objects stored in __objec ts
-            for key, value in self.__objects.items():
+            for key, value in FileStorage.__objects.items():
                 # if the object in __objs is Place
-                if cls == key:
+                if cls == type(value):
                     # add it to the new dict
-                    my_dict[key] = value
-                return my_dict
+                    my_dict.update({key: value})
+            return my_dict
         else:
             return FileStorage.__objects
 
@@ -31,7 +31,7 @@ class FileStorage:
         """Saves storage dictionary to file"""
         with open(FileStorage.__file_path, 'w') as f:
             temp = {}
-            temp.update(FileStorage.__objects)
+            temp.update(self.__objects)
             for key, val in temp.items():
                 temp[key] = val.to_dict()
             json.dump(temp, f)
@@ -72,3 +72,7 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        '''deserializes the JSON file to objects'''
+        self.reload()

@@ -13,17 +13,17 @@ class State(BaseModel, Base):
 
     __tablename__ = 'states'
 
-    name = Column(String(128), nullable=False)
-
-    cities = relationship('City', cascade="all, delete", backref='state')
-
-    @property
-    def cities(self):
-        ''' cities getter '''
-        from models.engine import FileStorage
-
-        for n, city in FileStorage.__objects.items():
-            if city.state_id == self.id:
-                ret.append(City)
-
-        return ret
+    if getenv("HBNB_TYPE_STORAGE") == 'db':
+        name = Column(String(128), nullable=False)
+        cities = relationship('City', cascade="all, delete", backref='state')
+    else:
+        name = ''
+        @property
+        def cities(self):
+            ''' cities getter '''
+            from models.engine.file_storage import FileStorage
+            ret = []
+            for n, city in FileStorage.all(City).items():
+                if 'City' in n and city.state_id == self.id:
+                    ret.append(City)
+            return ret
