@@ -17,7 +17,7 @@ def teardown_method(self):
 @app.route('/cities_by_states')
 def cities_by_states():
     '''displas HTML page'''
-    states = storage.all(State)
+    states = storage.all('State')
     return render_template('8-cities_by_state.html', states=states)
 
 if __name__ == '__main__':
