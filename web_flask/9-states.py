@@ -19,7 +19,7 @@ def teardown_method(self):
 def states():
     '''displas HTML page'''
     states = storage.all(State)
-    return render_template('8-cities_by_states.html', states=states)
+    return render_template('9-states.html', states=states)
 
 
 @app.route('/states/<id>')
