@@ -4,14 +4,14 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-		{% if s_id == None %}
-        <H1>Not found!</H1>
+		{% if states %}
+        <H1>States</H1>
         <UL>
 		{% for state in states.values()|sort(attribute='name') %}
 			<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
 		{% endfor %}
         </UL>
-		{% else %}
+		{% elif s_id != None %}
 		<H1>State: {{ s_id.name }}</H1>
 		<H3>Cities:</H3>
 		{% for cities in s_id.cities|sort(attribute='name') %}
@@ -19,5 +19,8 @@
 		{% endfor %}
 		<UL>
 		</UL>
+		{% else %}
+		<H1>Not found!</H1>
+		{% endif %}
     </BODY>
 </HTML>
